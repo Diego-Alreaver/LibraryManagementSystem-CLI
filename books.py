@@ -16,7 +16,7 @@ class books():
             self._disponible = True
 
     def __str__(self):
-        return f"El título del libro es: {self._title}, su autor es: {self._author}, su género es: {self._genre}, su año de publicación es: {self._publish_year}, el ISBN es {self._ISBN}, el libro está {self._disponible}"
+        return f" Título: {self._title}\n Autor: {self._author}\n Género: {self._genre}\n Año de publicación: {self._publish_year}\n ISBN: {self._ISBN}\n Disponibilidad: {self._disponible}"
 
     
 

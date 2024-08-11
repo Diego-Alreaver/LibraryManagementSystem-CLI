@@ -15,5 +15,14 @@ class Libreria:
         with open("libros.csv", "r") as archivo_csv:
             lector = csv.reader(archivo_csv)
             for fila in lector:
-                print(fila)  # Imprime cada fila para verificar su contenido
+                titulo = fila[0]
+                autor = fila[1]
+                genero = fila[2]
+                año = fila[3]
+                isbn = fila[4]
+                disponibilidad = fila[5]
+                nuevo_libro = books(titulo, autor, genero, año, isbn, disponibilidad)
+                self.libros.append(nuevo_libro)
 
+    def informacion(self):
+        print(self.libros[0])
