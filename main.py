@@ -1,6 +1,9 @@
 import sys
+from libreria import Libreria
 
 def main():
-    pass
+    libreria = Libreria("Libreria Al")
+    libreria.agregarLibroCSV()
+
 
 main()
