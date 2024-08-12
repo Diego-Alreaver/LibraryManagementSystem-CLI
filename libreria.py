@@ -1,4 +1,5 @@
 from books import books
+from usuarios import Usuario
 import csv
 
 class Libreria:
@@ -8,7 +9,18 @@ class Libreria:
         self.prestamos = [] #lista para saber los libros prestados
         self.capacidad_maxima = capacidad_maxima #capacidad maxima de la libreria, probablemente sin uso
         self.usuarios = [] #lista de nombres de usuarios registrados
- 
+
+
+    def agregarUsuarioCSV(self):
+        with open("usuarios.csv", "r") as archivo_csv:
+            lector = csv.reader(archivo_csv)
+            for fila in lector:
+                nombre = fila[0]
+                apellido = fila[1]
+                cedula = fila[2]
+                newuser = Usuario(nombre, apellido, cedula)
+                self.usuarios.append(newuser)
+
     def agregarLibroCSV(self):
         with open("libros.csv", "r") as archivo_csv:
             lector = csv.reader(archivo_csv)
@@ -42,3 +54,7 @@ class Libreria:
             
     def informacion(self):
         print(self.libros[len(self.libros)-1])
+
+    def listar_usuarios(self):
+        for usuario in self.usuarios:
+            print(usuario)

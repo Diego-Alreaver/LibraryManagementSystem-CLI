@@ -5,23 +5,31 @@ def main():
     opc = ''
     libreria = Libreria("Libreria Al")
     libreria.agregarLibroCSV()
+    libreria.agregarUsuarioCSV()
+
     while opc != '5':
         print(f"Bienvenido a la librería {libreria.nombre}, estas son sus opciones:")
         print("1) Agregar un libro")
         print("2) Revisar último libro agregado")
+        print("3) Lista de usuarios")
         print("5) Salir")
         
         opc = input("Seleccione una opción: ")
 
         # Validar que la opción sea un número y esté dentro de las opciones disponibles
-        if opc not in ['1', '2', '5']:
+        if opc not in ['1', '2', '3', '5']:
             print("Opción no válida. Por favor, seleccione una opción válida.")
             continue
 
         if opc == '1':
             libreria.agregarLibroManual()
+
         elif opc == '2':
             libreria.informacion()
+
+        elif opc == '3':
+            libreria.listar_usuarios()
+
         elif opc == '5':
             print("Saliendo del programa...")
             break
