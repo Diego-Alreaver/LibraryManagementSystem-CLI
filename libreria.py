@@ -10,6 +10,13 @@ class Libreria:
         self.capacidad_maxima = capacidad_maxima #capacidad maxima de la libreria, probablemente sin uso
         self.usuarios = [] #lista de nombres de usuarios registrados
 
+        #diccionarios para busquedas de libros
+        self.catalogo = {} #diccionario para buscar por ISBN
+        self.catalogo_autores = {}  # Diccionario para búsqueda por autor
+        self.catalogo_titulos = {}  # Diccionario para búsqueda por título
+        self.catalogo_generos = {}  # Diccionario para búsqueda por género
+        self.catalogo_año     = {}  # Diccionario para búsqueda por año de publicación
+ 
 
     def agregarUsuarioCSV(self):
         with open("usuarios.csv", "r") as archivo_csv:
@@ -33,24 +40,67 @@ class Libreria:
                 disponibilidad = fila[5]
                 nuevo_libro = books(titulo, autor, genero, año, isbn, disponibilidad)
                 self.libros.append(nuevo_libro)
+                self.catalogo[nuevo_libro._ISBN] = nuevo_libro
+
+                if autor in self.catalogo_autores:
+                    self.catalogo_autores[autor].append(nuevo_libro)
+                else:
+                    self.catalogo_autores[autor] = [nuevo_libro]
+                
+                if titulo in self.catalogo_titulos:
+                    self.catalogo_titulos[titulo].append(nuevo_libro)
+                else:
+                    self.catalogo_titulos[titulo] = [nuevo_libro]
+
+                if genero in self.catalogo_generos:
+                    self.catalogo_generos[genero].append(nuevo_libro)
+                else:
+                    self.catalogo_generos[genero] = [nuevo_libro]
+
+                if año in self.catalogo_año:
+                    self.catalogo_año[año].append(nuevo_libro)
+                else:
+                    self.catalogo_año[año] = [nuevo_libro]
 
     def agregarLibroManual(self):
         titulo = input("Ingrese el título del libro: ")
         autor = input("Ingrese el autor del libro: ")
         genero = input("Ingrese el género del libro: ")
-        anio_publicacion = input("Ingrese el año de publicación del libro: ")
+        año = input("Ingrese el año de publicación del libro: ")
         isbn = input("Ingrese el ISBN del libro: ")
         estado = "Disponible"
         
-        newbook = books(titulo, autor, genero, anio_publicacion, isbn, estado)
-        self.libros.append(newbook)
+        nuevo_libro = books(titulo, autor, genero, año, isbn, estado)
+        self.libros.append(nuevo_libro)
+        self.catalogo[nuevo_libro._ISBN] = nuevo_libro
+
+
+        if autor in self.catalogo_autores:
+            self.catalogo_autores[autor].append(nuevo_libro)
+        else:
+            self.catalogo_autores[autor] = [nuevo_libro]
+        
+        if titulo in self.catalogo_titulos:
+            self.catalogo_titulos[titulo].append(nuevo_libro)
+        else:
+            self.catalogo_titulos[titulo] = [nuevo_libro]
+
+        if genero in self.catalogo_generos:
+            self.catalogo_generos[genero].append(nuevo_libro)
+        else:
+            self.catalogo_generos[genero] = [nuevo_libro]
+
+        if año in self.catalogo_año:
+            self.catalogo_año[año].append(nuevo_libro)
+        else:
+            self.catalogo_año[año] = [nuevo_libro]
 
         # Escribir los datos a un archivo CSV
         with open("libros.csv", "a", newline='') as archivo_csv:
             escritor = csv.writer(archivo_csv)
             # Convertir el objeto en una lista de sus atributos
-            escritor.writerow([newbook._title, newbook._author, newbook._genre, 
-                               newbook._publish_year, newbook._ISBN, newbook._disponible])
+            escritor.writerow([nuevo_libro._title, nuevo_libro._author, nuevo_libro._genre, 
+                               nuevo_libro._publish_year, nuevo_libro._ISBN, nuevo_libro._disponible])
             
     def informacion(self):
         print(self.libros[len(self.libros)-1])
@@ -58,3 +108,33 @@ class Libreria:
     def listar_usuarios(self):
         for usuario in self.usuarios:
             print(usuario)
+    
+    def buscarLibro(self, isbn):
+        if isbn in self.catalogo:
+            return self.catalogo[isbn]
+        else:
+            return None
+        
+    def buscarPorAutor(self, autor):
+        if autor in self.catalogo_autores:
+            return self.catalogo_autores[autor]
+        else:
+            return []
+
+    def buscarPorTitulo(self, titulo):
+        if titulo in self.catalogo_titulos:
+            return self.catalogo_titulos[titulo]
+        else:
+            return []
+        
+    def buscarPorGenero(self, genero):
+        if genero in self.catalogo_generos:
+            return self.catalogo_generos[genero]
+        else:
+            return []
+        
+    def buscarPorAño(self, año):
+        if año in self.catalogo_año:
+            return self.catalogo_año[año]
+        else:
+            return []
