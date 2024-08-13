@@ -102,7 +102,16 @@ class Libreria:
             escritor.writerow([nuevo_libro._title, nuevo_libro._author, nuevo_libro._genre, 
                                nuevo_libro._publish_year, nuevo_libro._ISBN, nuevo_libro._disponible])
             
-    def informacion(self):
+    def inventarioTotal(self): #muestra todos los libros en la biblioteca
+        for libro in self.libros:
+            print(libro)
+            print("\n")
+        print(f"En total hay: {len(self.libros)} libros")
+
+    def inventarioDisponible(self): #muestra solo libros disponibles
+        print(self.libros[len(self.libros)-1])
+
+    def inventarioPrestados(self): #muestra libros prestados y quién los tiene.
         print(self.libros[len(self.libros)-1])
 
     def listar_usuarios(self):
