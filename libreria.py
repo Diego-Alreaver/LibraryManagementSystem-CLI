@@ -120,10 +120,11 @@ class Libreria:
     def listar_usuarios(self):
         for usuario in self.usuarios:
             print(usuario)
+            print("\n")
     
     def buscarPorISBN(self, isbn):
-        if isbn in self.catalogo:
-            return self.catalogo[isbn]
+        if isbn in self.catalogo_ISBN:
+            return self.catalogo_ISBN[isbn]
         else:
             return None
         

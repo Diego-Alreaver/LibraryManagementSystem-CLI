@@ -102,10 +102,24 @@ def main():
                 if usuario.verificacion(nombre, apellido, cedula):
                     print("\033[94mUsuario encontrado.\033[0m")
                     usuario_encontrado = True
+                    libro_a_prestar = input("Ingrese el ISBN del libro a prestar: ")
+                    libro = libreria.buscarPorISBN(libro_a_prestar)  # Buscar el libro por ISBN
+                    if libro:
+                        print(f"\033[94mLibro encontrado: {libro._title}\033[0m")
+                        print(f"Estado actual del libro: {libro._disponible}")
+                        if libro._disponible == "Disponible":  # Verificar que el libro esté disponible
+                            libro.estado("Prestado")  # Cambiar el estado del libro a prestado
+                            print(f"Nuevo estado del libro: {libro._disponible}")
+                            usuario._libros_en_posesion.append(libro)  # Agregar el libro a la lista del usuario
+                            libreria.prestamos.append(libro)  # Registrar el préstamo en la librería
+                            print(f"\033[92mLibro '{libro._title}' prestado exitosamente.\033[0m")
+                        else:
+                            print("\033[91mEl libro no está disponible.\033[0m")
+                    else:
+                        print("\033[91mEl libro no se encontró en la biblioteca.\033[0m")
                     break
-
-            if not usuario_encontrado:
-                print("\033[91mEsa persona no está registrada.\033[0m")
+            else:
+                print("\033[91mUsuario no encontrado.\033[0m")
 
         elif opc == '6':
             print("Saliendo del programa...")

@@ -11,9 +11,9 @@ class books():
 
     def estado(self, prestamo):
         if prestamo == "Prestado":
-            self._disponible = False
+            self._disponible = "Prestado"
         if prestamo == "Devuelto":
-            self._disponible = True
+            self._disponible = "Disponible"
 
     def __str__(self):
         return f" Título: {self._title}\n Autor: {self._author}\n Género: {self._genre}\n Año de publicación: {self._publish_year}\n ISBN: {self._ISBN}\n Disponibilidad: {self._disponible}"
