@@ -11,7 +11,7 @@ class Libreria:
         self.usuarios = [] #lista de nombres de usuarios registrados
 
         #diccionarios para busquedas de libros
-        self.catalogo = {} #diccionario para buscar por ISBN
+        self.catalogo_ISBN = {} #diccionario para buscar por ISBN
         self.catalogo_autores = {}  # Diccionario para búsqueda por autor
         self.catalogo_titulos = {}  # Diccionario para búsqueda por título
         self.catalogo_generos = {}  # Diccionario para búsqueda por género
@@ -40,7 +40,7 @@ class Libreria:
                 disponibilidad = fila[5]
                 nuevo_libro = books(titulo, autor, genero, año, isbn, disponibilidad)
                 self.libros.append(nuevo_libro)
-                self.catalogo[nuevo_libro._ISBN] = nuevo_libro
+                self.catalogo_ISBN[nuevo_libro._ISBN] = nuevo_libro
 
                 if autor in self.catalogo_autores:
                     self.catalogo_autores[autor].append(nuevo_libro)
@@ -72,7 +72,7 @@ class Libreria:
         
         nuevo_libro = books(titulo, autor, genero, año, isbn, estado)
         self.libros.append(nuevo_libro)
-        self.catalogo[nuevo_libro._ISBN] = nuevo_libro
+        self.catalogo_ISBN[nuevo_libro._ISBN] = nuevo_libro
 
 
         if autor in self.catalogo_autores:
@@ -109,7 +109,10 @@ class Libreria:
         print(f"En total hay: {len(self.libros)} libros")
 
     def inventarioDisponible(self): #muestra solo libros disponibles
-        print(self.libros[len(self.libros)-1])
+        for libro in self.libros:
+            if libro._disponible == "Disponible":
+                print(libro)
+                print("\n")
 
     def inventarioPrestados(self): #muestra libros prestados y quién los tiene.
         print(self.libros[len(self.libros)-1])
@@ -118,7 +121,7 @@ class Libreria:
         for usuario in self.usuarios:
             print(usuario)
     
-    def buscarLibro(self, isbn):
+    def buscarPorISBN(self, isbn):
         if isbn in self.catalogo:
             return self.catalogo[isbn]
         else:

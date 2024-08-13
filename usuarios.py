@@ -26,3 +26,7 @@ class Usuario:
 
     def __str__(self):
         return f" Nombre: {self._nombre} \n Apellido: {self._apellido} \n Cedula: {self._cedula}"
+    
+    def verificacion(self, nombre, apellido, cedula):
+        if nombre == self._nombre and apellido == self._apellido and cedula == self._cedula:
+            return True
