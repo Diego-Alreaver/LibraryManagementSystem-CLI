@@ -12,7 +12,7 @@ class books():
     def estado(self, prestamo):
         if prestamo == "Prestado":
             self._disponible = "Prestado"
-        if prestamo == "Devuelto":
+        if prestamo == "Disponible":
             self._disponible = "Disponible"
 
     def __str__(self):

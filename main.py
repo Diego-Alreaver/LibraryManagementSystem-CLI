@@ -8,19 +8,20 @@ libreria.agregarUsuarioCSV()
 
 def main():
     opc = ''
-    while opc != '6':
+    while opc != '7':
         print(f"Bienvenido a la librería {libreria.nombre}, estas son sus opciones:")
         print("1) Agregar un libro")
         print("2) Inventario")
         print("3) Lista de usuarios")
         print("4) Buscar libro")
         print("5) Prestar un libro")
-        print("6) Salir")
+        print("6) Devolver un libro")
+        print("7) Salir")
         
         opc = input("Seleccione una opción: ")
 
         # Validar que la opción sea un número y esté dentro de las opciones disponibles
-        if opc not in ['1', '2', '3', '4', '5', '6']:
+        if opc not in ['1', '2', '3', '4', '5', '6', '7']:
             print("Opción no válida. Por favor, seleccione una opción válida.")
             continue
 
@@ -108,9 +109,7 @@ def main():
                         print(f"\033[94mLibro encontrado: {libro._title}\033[0m")
                         print(f"Estado actual del libro: {libro._disponible}")
                         if libro._disponible == "Disponible":  # Verificar que el libro esté disponible
-                            libro.estado("Prestado")  # Cambiar el estado del libro a prestado
-                            print(f"Nuevo estado del libro: {libro._disponible}")
-                            usuario._libros_en_posesion.append(libro)  # Agregar el libro a la lista del usuario
+                            usuario.prestarlibro(libro)
                             libreria.prestamos.append(libro)  # Registrar el préstamo en la librería
                             print(f"\033[92mLibro '{libro._title}' prestado exitosamente.\033[0m")
                         else:
@@ -121,7 +120,23 @@ def main():
             else:
                 print("\033[91mUsuario no encontrado.\033[0m")
 
+
         elif opc == '6':
+            nombre = input("Ingrese el nombre del usuario que desea devolver un libro: ")
+            apellido = input("Ingrese el apellido de la persona: ")
+            cedula = input("Ingrese la cédula de la persona: ")
+            usuario_encontrado = False
+            for usuario in libreria.usuarios:  # Recorre la lista de usuarios de la librería
+                if usuario.verificacion(nombre, apellido, cedula):
+                    print("\033[94mUsuario encontrado.\033[0m")
+                    usuario_encontrado = True
+                    usuario.listaprestados()
+                    libro_a_devolver = input("Ingrese el ISBN del libro a devolver: ")
+                    resultado = usuario.devolverlibro(libro_a_devolver)
+                    print(resultado)
+                    libreria.eliminarprestamo(libro_a_devolver)
+ 
+        elif opc == '7':
             print("Saliendo del programa...")
             break
 

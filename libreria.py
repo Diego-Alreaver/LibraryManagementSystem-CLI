@@ -115,7 +115,10 @@ class Libreria:
                 print("\n")
 
     def inventarioPrestados(self): #muestra libros prestados y quién los tiene.
-        print(self.libros[len(self.libros)-1])
+        for libro in self.libros:
+            if libro._disponible == "Prestado":
+                print(libro)
+                print("\n")
 
     def listar_usuarios(self):
         for usuario in self.usuarios:
@@ -151,3 +154,11 @@ class Libreria:
             return self.catalogo_año[año]
         else:
             return []
+    
+    def eliminarprestamo(self, isbn):
+        libro = self.buscarPorISBN(isbn)
+        if libro:
+            for prestamo in self.prestamos:
+                    if prestamo._ISBN == libro._ISBN:
+                        self.prestamos.remove(prestamo)
+                        break
