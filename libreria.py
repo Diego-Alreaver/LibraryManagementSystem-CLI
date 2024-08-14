@@ -32,13 +32,17 @@ class Libreria:
         with open("libros.csv", "r") as archivo_csv:
             lector = csv.reader(archivo_csv)
             libros = list(lector)
+            
             # Ordenar la lista por el cuarto elemento de cada fila (año de publicación)
-            fila = sorted(libros, key=lambda x: int(x[3]))
+            libros_ordenados = sorted(libros, key=lambda x: int(x[3]))
+            
+            # Guardar el archivo CSV ordenado
             with open('libros.csv', mode='w', newline='') as file:
                 writer = csv.writer(file)
-                writer.writerows(fila)
+                writer.writerows(libros_ordenados)
         
-            for fila in lector:
+        # Iterar sobre los libros ya ordenados
+            for fila in libros_ordenados:
                 titulo = fila[0]
                 autor = fila[1]
                 genero = fila[2]
@@ -47,6 +51,8 @@ class Libreria:
                 disponibilidad = fila[5]
                 nuevo_libro = books(titulo, autor, genero, año, isbn, disponibilidad)
                 self.libros.append(nuevo_libro)
+
+                #Crea diccionarios (hashmaps) para facilitar la búsqueda
                 self.catalogo_ISBN[nuevo_libro._ISBN] = nuevo_libro
 
                 if autor in self.catalogo_autores:
@@ -68,8 +74,6 @@ class Libreria:
                     self.catalogo_año[año].append(nuevo_libro)
                 else:
                     self.catalogo_año[año] = [nuevo_libro]
-
-            
 
     def agregarLibroManual(self):
         titulo = input("Ingrese el título del libro: ")
@@ -124,11 +128,14 @@ class Libreria:
                 print("\n")
 
     def inventarioPrestados(self):
-        for libro in self.prestamos:
-            for usuario in self.usuarios:  # Asumiendo que tienes una lista de usuarios
-                if libro in usuario._libros_en_posesion:
-                    print(f"{libro} \n En posesión de: {usuario._nombre} {usuario._apellido}")
-                    break
+        if self.prestamos:
+            for libro in self.prestamos:
+                for usuario in self.usuarios:  # Asumiendo que tienes una lista de usuarios
+                    if libro in usuario._libros_en_posesion:
+                        print(f"{libro} \n En posesión de: {usuario._nombre} {usuario._apellido}")
+                        break
+        else:
+            print("Actualmente no hay libros prestados")
 
     def listar_usuarios(self):
         for usuario in self.usuarios:
@@ -168,11 +175,12 @@ class Libreria:
         else:
             return []
         
-    def buscarPorAño(self, año):
-        if año in self.catalogo_año:
-            return self.catalogo_año[año]
-        else:
-            return []
+    def buscarPorAño(self, año1, año2):
+        libros_en_rango = []
+        for libro in self.libros:
+            if int(libro._publish_year) >= int(año1) and int(libro._publish_year) <= int(año2):
+                libros_en_rango.append(libro)
+        return libros_en_rango
     
     def eliminarprestamo(self, isbn):
         libro = self.buscarPorISBN(isbn)

@@ -83,14 +83,16 @@ def main():
                     break
                 
                 elif subopcion == '4':
-                    año = input("Ingrese el año de publicación: ")
-                    libros = libreria.buscarPorAño(año)
+                    print("Ingrese el rango de años de publicación: ")
+                    año1 = input("Desde este año: ")
+                    año2 = input("Hasta este año: ")
+                    libros = libreria.buscarPorAño(año1, año2)
                     if libros:
                         for libro in libros:
                             print(libro)
                             print("\n")
                     else:
-                        print("No se encontraron libros para ese año de publicación")
+                        print("No se encontraron libros para el rango de años.")
                     break
 
                 elif subopcion == '5':
@@ -139,6 +141,10 @@ def main():
                     resultado = usuario.devolverlibro(libro_a_devolver)
                     print(resultado)
                     libreria.eliminarprestamo(libro_a_devolver) #eliminar el libro de la lista de prestados
+                    break  # Salimos del bucle una vez que hemos encontrado y tratado de devolver el libro
+            
+            if not usuario_encontrado:
+                print("\033[91mUsuario no encontrado.\033[0m")
  
         elif opc == '7':
             print("Saliendo del programa...")
