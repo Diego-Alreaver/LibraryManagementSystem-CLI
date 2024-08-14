@@ -114,11 +114,12 @@ class Libreria:
                 print(libro)
                 print("\n")
 
-    def inventarioPrestados(self): #muestra libros prestados y quién los tiene.
-        for libro in self.libros:
-            if libro._disponible == "Prestado":
-                print(libro)
-                print("\n")
+    def inventarioPrestados(self):
+        for libro in self.prestamos:
+            for usuario in self.usuarios:  # Asumiendo que tienes una lista de usuarios
+                if libro in usuario._libros_en_posesion:
+                    print(f"{libro} \n En posesión de: {usuario._nombre} {usuario._apellido}")
+                    break
 
     def listar_usuarios(self):
         for usuario in self.usuarios:

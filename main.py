@@ -134,7 +134,7 @@ def main():
                     libro_a_devolver = input("Ingrese el ISBN del libro a devolver: ")
                     resultado = usuario.devolverlibro(libro_a_devolver)
                     print(resultado)
-                    libreria.eliminarprestamo(libro_a_devolver)
+                    libreria.eliminarprestamo(libro_a_devolver) #eliminar el libro de la lista de prestados
  
         elif opc == '7':
             print("Saliendo del programa...")
