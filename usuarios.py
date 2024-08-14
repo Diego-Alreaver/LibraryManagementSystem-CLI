@@ -14,7 +14,7 @@ class Usuario:
     def prestarlibro(self, libro):
         libro.estado("Prestado")
         self._libros_en_posesion.append(libro)
-        self._historial_prestamo.append(libro)
+
         return f"Se le ha prestado el libro: {libro} al usuario {self._nombre} {self._apellido}"
         
     def devolverlibro(self, isbn):
@@ -22,6 +22,7 @@ class Usuario:
             if libro._ISBN == isbn:
                 libro.estado("Disponible")
                 self._libros_en_posesion.remove(libro)
+                self._historial_prestamo.append(libro)
                 return f"El usuario {self._nombre} {self._apellido} ha devuelto el libro {libro._title}"
         
         return "El usuario no posee ese libro"

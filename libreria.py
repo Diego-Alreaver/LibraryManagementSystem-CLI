@@ -31,6 +31,13 @@ class Libreria:
     def agregarLibroCSV(self):
         with open("libros.csv", "r") as archivo_csv:
             lector = csv.reader(archivo_csv)
+            libros = list(lector)
+            # Ordenar la lista por el cuarto elemento de cada fila (año de publicación)
+            fila = sorted(libros, key=lambda x: int(x[3]))
+            with open('libros.csv', mode='w', newline='') as file:
+                writer = csv.writer(file)
+                writer.writerows(fila)
+        
             for fila in lector:
                 titulo = fila[0]
                 autor = fila[1]
@@ -61,6 +68,8 @@ class Libreria:
                     self.catalogo_año[año].append(nuevo_libro)
                 else:
                     self.catalogo_año[año] = [nuevo_libro]
+
+            
 
     def agregarLibroManual(self):
         titulo = input("Ingrese el título del libro: ")
@@ -124,6 +133,15 @@ class Libreria:
     def listar_usuarios(self):
         for usuario in self.usuarios:
             print(usuario)
+            if usuario._libros_en_posesion:
+                print(f" El usuario {usuario._nombre} {usuario._apellido} posee los siguientes libros: ")
+                for libro in usuario._libros_en_posesion:
+                    print(f" {libro._title}")
+
+            if usuario._historial_prestamo:
+                print(f" El usuario {usuario._nombre} {usuario._apellido} anteriormente ha solicitado estos libros prestados y los ha devuelto con éxito: ")
+                for libro in usuario._historial_prestamo:
+                    print(f" {libro._title}")
             print("\n")
     
     def buscarPorISBN(self, isbn):

@@ -47,8 +47,8 @@ def main():
             libreria.listar_usuarios()
 
         elif opc == '4':
-            subopcion = input("¿Cómo desea buscar el libro? \n1) Por título \n2) Por autor \n3) Por género \n4) Por año de publicación \n5) Volver al menú principal \n")
-            while subopcion != 5:
+            while True:
+                subopcion = input("¿Cómo desea buscar el libro? \n1) Por título \n2) Por autor \n3) Por género \n4) Por año de publicación \n5) Volver al menú principal \n")
                 if subopcion == '1':
                     titulo = input("Ingrese el título: ")
                     libros = libreria.buscarPorTitulo(titulo)
@@ -58,6 +58,7 @@ def main():
                             print("\n")
                     else:
                         print("No se encontraron libros con ese título")
+                    break
                 
                 elif subopcion == '2':
                     autor = input("Ingrese el autor: ")
@@ -68,6 +69,7 @@ def main():
                             print("\n")
                     else:
                         print("No se encontraron libros de ese autor.")
+                    break
                 
                 elif subopcion == '3':
                     genero = input("Ingrese el género: ")
@@ -78,6 +80,7 @@ def main():
                             print("\n")
                     else:
                         print("No se encontraron libros de ese género")
+                    break
                 
                 elif subopcion == '4':
                     año = input("Ingrese el año de publicación: ")
@@ -88,6 +91,7 @@ def main():
                             print("\n")
                     else:
                         print("No se encontraron libros para ese año de publicación")
+                    break
 
                 elif subopcion == '5':
                     break
