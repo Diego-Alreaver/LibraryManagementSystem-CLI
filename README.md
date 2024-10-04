@@ -1,6 +1,6 @@
 # Library Management System
 
-This project is a simple CLI-based Library Management System that allows users to manage books and users efficiently. With this system, you can add new books, keep track of inventory, manage book loans, and maintain a list of users. The project is built with Python and utilizes CSV files for storing data persistently.
+This project is a CLI-based Library Management System that allows users to manage books and users efficiently. With this system, you can add new books, keep track of inventory, manage book loans, and maintain a list of users. The project is built with Python and utilizes CSV files for storing data persistently.
 
 ## Features
 - Add new books manually or through a CSV file
